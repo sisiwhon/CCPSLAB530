@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+ 
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/> 
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
+    <link rel="stylesheet" href="Style.css">
+
+    <style>
+        #map { height: 180px; }
+    </style>
+
+    <title>Document</title>
+</head>
+<body> 
+    <div>
+    <h1>I SPY IP Geolocation</h1>
+    
+    <ul>
+        <li><a class="active" href="#home">Home</a></li>
+        <li><a href="#About">About</a></li>
+    </ul>
+    <p>
+        The purpose of this assignment is to do a reverse IP lookup 
+    </p>
+    </div>
+    <input id="in">
+    <button onclick="findip()"findip>Find Me</button>
+    <div id="out"></div>
+    <div id="map"></div>
+    <P>
+        latitude: <span id="lat"></span><br/>
+        longitude:<span id="lon"></span>
+    </P> 
+
+    <script>
+        //bulding map
+        var mymap = L.map('map').setView([0,0], 1);
+        
+        const attribution ='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+        const tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+        const tiles = L.tileLayer(tileUrl, { attribution });
+        tiles.addTo(mymap);
+//ip look up
+          function findip(){
+             
+            
+                $.get( "https://api.ipfind.com?ip=" + document.getElementById("in").value + "&auth=514d6018-b817-4044-b4c4-dec87ff1316d",function(data){
+                    document.getElementById("out").innerHTML="IP Address:" + data.ip_address+"<br> Location:" + data.city+ "," + data.region+","+data.country+","+"<br>Latitude:" + data.latitude+","+"<br>Longitude:" + data.longitude; 
+                    document.getElementById('lat').textContent =data.latitude
+                    document.getElementById('lon').textContent =data.longitude
+                }
+            )
+                
+            
+
+            //making a marker
+                
+            const marker = L.marker([0,0]).addTo(mymap)
+               
+        }
+    
+        findip();
+                
+        
+          
+    </script>
+    
+</body>
+</html>
