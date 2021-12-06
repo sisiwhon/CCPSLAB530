@@ -1,0 +1,54 @@
+<style>
+    h1{
+        text-align: center;
+        color: cornflowerblue;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+    div{
+        text-align: center;
+        
+    }
+        
+    
+    form{
+        text-align: center;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        
+       
+    }
+    button{
+        color: #6495ed;
+        text-align: center;
+    }
+    h3{
+        text-align: center;
+        color: cornflowerblue;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+    
+
+    
+    
+</style>
+<h1>I SPY</h1>
+
+<% if (messages.error) { %>
+    <%= messages.error %>
+<% } %>
+<div>
+<img src="https://www.pngkey.com/png/detail/416-4168248_business-people-clipart-png-business-person-clipart-clip.png" alt="" class="'center">
+</div>
+<h3>Login</h3>
+<form action="/login" method="POST">
+   
+    <div>
+        <label for="email">Email</label>
+        <input type="email" id="email"name="email" required>
+    </div>
+    <div>
+        <label for="password">Password</label>
+        <input type="password" id="password"name="password" required>
+    </div>
+    <button type="submit">Login</button>
+</form>
+<a href="/register">Register</a>

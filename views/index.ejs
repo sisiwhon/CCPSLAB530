@@ -1,0 +1,193 @@
+<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    
+    
+    
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin=""/>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+   crossorigin=""></script>
+    
+
+    <link rel="stylesheet" href="Style.css">
+    <style>
+        #map { height: 600px;
+            
+
+         }
+        head{
+    align-items: center;
+    color: cornflowerblue;
+    font-family: fantasy;
+}
+h1 {
+    color: cornflowerblue;
+    font-family: Haettenschweiler, 'Arial Narrow', sans-serif;
+    text-align: center;
+    
+    
+}
+h3{
+    color: black;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: small;
+    align-items: stretch;
+    width: max-content;
+    background-color: cornflowerblue;
+}
+a {
+    color: darkblue;
+    font-size: x-large;
+    font-display: bold;
+    font-display: italic;
+}
+img {
+    width: 100%;
+    height: 70%;
+}
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+  }
+  
+  li {
+    float: left;
+  }
+  
+  li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+  
+  li a:hover {
+    background-color: #111;
+  }
+
+  body {font-family: Arial, Helvetica, sans-serif;}
+
+  /* Full-width input fields */
+  input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+  
+  /* Set a style for all buttons */
+  button {
+    background-color: #04AA6D;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  button:hover {
+    opacity: 0.8;
+  }
+
+  
+ 
+  
+  
+    </style>
+
+    <title>IP GEOLOCATION PROJECT</title>
+</head>
+<body> 
+    <h1 >Welcome <%=name%> To I SPY</h1>
+    <div>
+<form action="/login?_method=DELETE" method="POST">
+    <button type="submit">Log Out</button>
+</form>
+</div>
+    
+    <ul>
+    <li><a class="active" href="#home">Home</a></li>
+    <li><a href="#About">About</a></li>
+    </ul>
+    <p>
+    The purpose of this assignment is to do a reverse IP lookup using the IPFIND.COM API!!! 
+    </p>
+    </div>
+    <div>
+        <p style="font-family: Verdana, Geneva, Tahoma, sans-serif; color: cornflowerblue;">
+            input IP address here please
+        </p>
+    </div>
+
+    <input id="in">
+    <button onclick="findip()"findip>Find Me</button>
+    <div id="out"></div>
+    <div id="map"></div>
+   
+    
+
+    <script>
+  
+  function findip(){
+        $.get("https://api.ipfind.com/?ip=" + document.getElementById("in").value + "&auth=514d6018-b817-4044-b4c4-dec87ff1316d",function(data){
+            document.getElementById("out").innerHTML="IP Address:" + data.ip_address+"<br> Location:" + data.city+ "," + data.region+","+data.country+","+"<br>Latitude:" + data.latitude+","+"<br>Longitude:" + data.longitude+"<br>Continent:" + data.continent+"<br>Postal_code:" + data.postal_code; 
+            document.getElementById('latitude').textContent =data.latitude
+            document.getElementById('logitude').textContent =data.longitude
+        }
+        )
+//bulding map
+        
+        
+        
+        var mymap = L.map('map').setView([43.6576,-79.3798], 1);
+
+        const attribution ='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+        const tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+        const tiles = L.tileLayer(tileUrl, { attribution });
+        tiles.addTo(mymap);
+
+      
+
+      
+        //making a marker
+      
+      var marker = L.marker([43.6576,-79.3798],{draggable: true}).addTo(mymap);
+      marker.bindPopup("<b>This is ...</b><br>Our university").openPopup();
+      
+      
+      
+    
+       
+        }
+            
+
+            
+
+        findip();
+          
+  
+    
+</script>
+
+    
+
+</body>
+</html>
